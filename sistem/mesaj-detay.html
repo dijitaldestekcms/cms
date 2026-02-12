@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesaj Detayı | UltraPro Yönetim Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+            --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* --- MASTER SIDEBAR & MOBILE HEADER --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1000; transition: 0.3s; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; }
+        .nav-link.active { background: var(--accent); color: #fff; }
+        
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: #fff; padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 900; justify-content: space-between; align-items: center; }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+
+        @media (max-width: 1024px) { 
+            .mobile-header { display: flex; } 
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding: 80px 20px 40px 20px; }
+            .message-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* --- MESSAGE DETAIL STYLES --- */
+        .btn-back { text-decoration: none; color: var(--text-muted); font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        
+        .message-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 30px; margin-bottom: 30px; }
+        
+        .message-header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 25px; }
+        .subject { font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
+        
+        .meta-info { display: flex; align-items: center; gap: 15px; }
+        .avatar-circle { width: 45px; height: 45px; background: #e0e7ff; color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+        
+        .sender-details div { font-weight: 700; font-size: 0.95rem; }
+        .sender-details span { color: var(--text-muted); font-size: 0.85rem; }
+
+        .message-body { line-height: 1.8; color: #475569; font-size: 1rem; margin-bottom: 40px; white-space: pre-line; }
+
+        .info-label { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px; }
+        .info-value { font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-bottom: 20px; }
+
+        .btn-action-group { display: flex; gap: 10px; }
+        .btn { padding: 12px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; flex: 1; text-align: center; text-decoration: none; font-size: 0.9rem; }
+        .btn-reply { background: var(--accent); color: #fff; }
+        .btn-delete { background: #fee2e2; color: var(--danger); }
+        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:25px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-link"><i>📊</i> Dashboard</a>
+            <a href="mesajlar.html" class="nav-link active"><i>📥</i> Mesajlar</a>
+            <a href="site-ayarlari.html" class="nav-link"><i>⚙️</i> Ayarlar</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <a href="mesajlar.html" class="btn-back">⬅ Mesajlara Dön</a>
+
+        <div class="message-grid">
+            <div class="left-col">
+                <div class="card">
+                    <div class="message-header">
+                        <h1 class="subject">Yeni Proje Hakkında Teklif Talebi</h1>
+                        <div class="meta-info">
+                            <div class="avatar-circle">CT</div>
+                            <div class="sender-details">
+                                <div>Caner Tekin</div>
+                                <span>12 Şubat 2026, 10:45</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message-body">
+                        Merhaba UltraPro ekibi,
+
+                        Şirketimiz için yeni bir web arayüzü ve SEO çalışması yaptırmak istiyoruz. Mevcut sitemiz çok yavaş ve mobil uyumluluğu oldukça düşük. 
+                        
+                        Sizin daha önceki referanslarınızı inceledim ve özellikle teknoloji sektöründeki çalışmalarınız çok ilgimizi çekti. Önümüzdeki hafta bir toplantı yapıp detayları görüşebilir miyiz?
+
+                        İyi çalışmalar dilerim.
+                    </div>
+
+                    <div class="btn-action-group">
+                        <a href="mailto:caner@example.com" class="btn btn-reply">📧 Yanıtla (E-posta Gönder)</a>
+                        <button class="btn btn-delete">🗑️ Mesajı Sil</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="card">
+                    <h3 style="margin-bottom:20px; font-weight:800; font-size:1.1rem">Gönderen Bilgileri</h3>
+                    
+                    <div class="info-label">E-Posta</div>
+                    <div class="info-value">caner@example.com</div>
+
+                    <div class="info-label">Telefon</div>
+                    <div class="info-value">+90 555 123 45 67</div>
+
+                    <div class="info-label">Gönderim Tarihi</div>
+                    <div class="info-value">12.02.2026 - 10:45</div>
+
+                    <div class="info-label">IP Adresi</div>
+                    <div class="info-value">192.168.1.45</div>
+
+                    <div style="margin-top:20px; padding-top:20px; border-top:1px solid var(--border)">
+                        <label style="display:flex; align-items:center; gap:10px; cursor:pointer; font-weight:700; font-size:0.85rem">
+                            <input type="checkbox" style="width:18px; height:18px"> Yanıtlandı olarak işaretle
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+    </script>
+</body>
+</html>

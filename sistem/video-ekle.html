@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Yönetimi | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1000; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 50px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; padding: 14px 18px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 8px; }
+        .nav-link.active { background: var(--accent); color: #fff; }
+
+        @media (max-width: 1024px) { .sidebar { display: none; } }
+
+        /* --- MAIN CONTENT --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; display: flex; flex-direction: column; }
+        @media (max-width: 1024px) { .main-content { margin-left: 0; width: 100%; padding: 20px; } }
+
+        /* --- FORM GRID --- */
+        .video-grid { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        @media (max-width: 1100px) { .video-grid { grid-template-columns: 1fr; } }
+
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 30px; margin-bottom: 30px; }
+        .card-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }
+        .form-group input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border); outline: none; transition: 0.3s; }
+        .form-group input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+
+        /* --- VIDEO PREVIEW AREA --- */
+        .video-preview {
+            width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            position: relative; border: 4px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .video-preview iframe { width: 100%; height: 100%; border: none; }
+        .preview-placeholder { color: #fff; text-align: center; }
+
+        /* --- BUTTONS --- */
+        .submit-section { display: flex; justify-content: flex-end; padding-top: 20px; border-top: 1px solid var(--border); }
+        .btn-save {
+            background: var(--accent); color: #fff; padding: 18px 60px; border-radius: 14px;
+            border: none; font-weight: 800; cursor: pointer; transition: 0.3s;
+        }
+        .btn-save:hover { background: #2563eb; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="hizmetler.html" class="nav-link">Hizmet Yönetimi</a>
+            <a href="galeri-ekle.html" class="nav-link">Resim Galerisi</a>
+            <a href="video-ekle.html" class="nav-link active">Video Ekle</a>
+            <a href="site-ayarlari.html" class="nav-link">Site Ayarları</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 35px;">
+            <h1 style="font-size: 1.8rem; font-weight: 800;">Yeni Video Ekle</h1>
+            <p style="color: var(--text-muted);">YouTube videolarını sitenize entegre edin.</p>
+        </header>
+
+        <form action="#" method="POST">
+            <div class="video-grid">
+                <div class="form-area">
+                    <div class="card">
+                        <h2 class="card-title">📹 Video Bilgileri</h2>
+                        <div class="form-group">
+                            <label>Video Başlığı</label>
+                            <input type="text" placeholder="Videoda görünecek başlık..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>YouTube Video Linki (URL)</label>
+                            <input type="text" id="youtube-link" placeholder="https://www.youtube.com/watch?v=XXXXX" required>
+                            <small style="color:var(--text-muted); font-size: 11px; display: block; margin-top: 5px;">Link yapıştırdığınızda önizleme sağ tarafta görünecektir.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Sıralama</label>
+                            <input type="number" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-area">
+                    <div class="card">
+                        <h2 class="card-title">👁️ Önizleme</h2>
+                        <div class="video-preview" id="preview-box">
+                            <div class="preview-placeholder">
+                                <span style="font-size: 3rem;">🎬</span>
+                                <p style="margin-top:10px; font-size: 0.8rem;">Henüz bir link girilmedi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="btn-save">Videoyu Yayınla</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('youtube-link').addEventListener('input', function(e) {
+            const val = e.target.value;
+            const previewBox = document.getElementById('preview-box');
+            
+            // Basit bir YouTube ID ayrıştırma
+            let videoId = "";
+            if(val.includes('v=')) {
+                videoId = val.split('v=')[1].split('&')[0];
+            } else if(val.includes('youtu.be/')) {
+                videoId = val.split('youtu.be/')[1];
+            }
+
+            if(videoId) {
+                previewBox.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`;
+            } else {
+                previewBox.innerHTML = `<div class="preview-placeholder"><span style="font-size: 3rem;">🎬</span><p>Geçersiz Link</p></div>`;
+            }
+        });
+    </script>
+</body>
+</html>

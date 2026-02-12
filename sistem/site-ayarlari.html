@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem ve Site Ayarları | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1000; transition: 0.3s; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; }
+        .nav-link.active { background: var(--accent); color: #fff; }
+        
+        /* --- MAIN CONTENT --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: #fff; padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 900; justify-content: space-between; align-items: center; }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--sidebar-bg); }
+
+        @media (max-width: 1024px) { 
+            .mobile-header { display: flex; } 
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding-top: 80px; padding-inline: 20px; }
+            .settings-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* --- SETTINGS GRID --- */
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .settings-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 25px; margin-bottom: 30px; height: fit-content; }
+        .card-header { border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .card-header h2 { font-size: 1rem; font-weight: 800; color: var(--sidebar-bg); }
+
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); outline: none; transition: 0.3s; font-size: 0.9rem; }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+
+        /* UPLOAD AREA */
+        .upload-container { display: flex; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px dashed var(--border); align-items: center; }
+        .preview-box { width: 50px; height: 50px; background: #fff; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+        .btn-save-fixed { background: var(--accent); color: #fff; padding: 18px 40px; border-radius: 14px; border: none; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); transition: 0.3s; display: block; width: 100%; margin: 20px 0 50px 0; font-size: 1rem; }
+        .btn-save-fixed:hover { transform: translateY(-2px); background: #2563eb; }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:25px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav>
+            <a href="dashboard.html" class="nav-link">📊 Dashboard</a>
+            <a href="mesajlar.html" class="nav-link">📥 Mesajlar</a>
+            <a href="site-ayarlari.html" class="nav-link active">⚙️ Ayarlar</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 30px;">
+            <h1 style="font-size: 1.8rem; font-weight: 800;">Site ve Sistem Ayarları</h1>
+            <p style="color: var(--text-muted);">Kurumsal kimlik, iletişim ve teknik servis yapılandırması.</p>
+        </header>
+
+        <form class="settings-grid">
+            <div class="col">
+                <div class="settings-card">
+                    <div class="card-header"><h2>🏢 Kurumsal Kimlik</h2></div>
+                    <div class="form-group">
+                        <label>Site Adı (Title)</label>
+                        <input type="text" value="UltraPro - Dijital Çözümler">
+                    </div>
+                    <div class="form-group">
+                        <label>Site Adresi (URL)</label>
+                        <input type="url" value="https://www.ultrapro.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Site Ana Dili</label>
+                        <select><option>Türkçe (TR)</option><option>English (EN)</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kurumsal Logo</label>
+                        <div class="upload-container">
+                            <div class="preview-box">🖼️</div>
+                            <input type="file" style="border:none; padding:0; font-size: 11px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Favicon (16x16)</label>
+                        <div class="upload-container">
+                            <div class="preview-box">🎨</div>
+                            <input type="file" style="border:none; padding:0; font-size: 11px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header"><h2>📍 İletişim Bilgileri</h2></div>
+                    <div class="form-group">
+                        <label>E-Posta Adresi</label>
+                        <input type="email" value="info@ultrapro.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon Numarası</label>
+                        <input type="text" value="+90 (212) 000 00 00">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Hattı</label>
+                        <input type="text" value="+90 500 000 00 00">
+                    </div>
+                    <div class="form-group">
+                        <label>Açık Adres</label>
+                        <textarea rows="3">Levent, Beşiktaş/İstanbul</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Harita Iframe Kodu (Google Maps)</label>
+                        <textarea rows="3" placeholder="<iframe..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="settings-card">
+                    <div class="card-header"><h2>🔍 SEO ve Mesai</h2></div>
+                    <div class="form-group">
+                        <label>Anahtar Kelimeler (Keywords)</label>
+                        <textarea rows="2">yazılım, dijital ajans, teknoloji...</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Copyright Metni</label>
+                        <input type="text" value="© 2026 UltraPro. Tüm Hakları Saklıdır.">
+                    </div>
+                    <div class="form-group">
+                        <label>Çalışma Saatleri</label>
+                        <input type="text" value="Pzt - Cum: 09:00 - 18:00">
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
+                        <div class="form-group"><label>LinkedIn</label><input type="text" placeholder="Link"></div>
+                        <div class="form-group"><label>X</label><input type="text" placeholder="Link"></div>
+                        <div class="form-group"><label>Instagram</label><input type="text" placeholder="Link"></div>
+                    </div>
+                </div>
+
+                <div class="settings-card" style="background: #fdf2f2; border-color: #fee2e2;">
+                    <div class="card-header"><h2>📧 SMTP Mail Yapılandırması</h2></div>
+                    <div class="form-group"><label>SMTP Host</label><input type="text" value="mail.ultrapro.com"></div>
+                    <div class="form-group"><label>SMTP User</label><input type="text" value="system@ultrapro.com"></div>
+                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+                        <div class="form-group"><label>SMTP Password</label><input type="password" value="********"></div>
+                        <div class="form-group"><label>SMTP Port</label><input type="text" value="587"></div>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header"><h2>📊 Google Servisleri (API)</h2></div>
+                    <div class="form-group">
+                        <label>Google Analytics ID</label>
+                        <input type="text" placeholder="G-XXXXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>reCaptcha Site Key</label>
+                        <input type="text" placeholder="6Ld...">
+                    </div>
+                    <div class="form-group">
+                        <label>reCaptcha Secret Key</label>
+                        <input type="password" placeholder="********">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <button type="submit" class="btn-save-fixed">Tüm Değişiklikleri Güvenle Kaydet</button>
+    </main>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+    </script>
+</body>
+</html>

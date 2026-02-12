@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Haber Ekle | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        /* --- SIDEBAR --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1100; transition: transform 0.3s ease; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; transition: 0.2s; }
+        .nav-link i { margin-right: 12px; font-style: normal; }
+        .nav-link:hover, .nav-link.active { background: rgba(59, 130, 246, 0.1); color: #fff; }
+        .nav-link.active { background: var(--accent); }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 1000; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .hamburger span { width: 100%; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+
+        /* --- CONTENT AREA --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .mobile-header { display: flex; }
+            .main-content { margin-left: 0; width: 100%; padding: 20px; padding-top: 85px; }
+            .form-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* --- FORM STYLES --- */
+        .form-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 25px; margin-bottom: 25px; }
+        .card-title { font-size: 1rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+        
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); outline: none; font-size: 0.9rem; margin-top: 8px; }
+        label { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+        .form-group { margin-bottom: 20px; }
+
+        .image-upload-area { border: 2px dashed var(--border); border-radius: var(--radius); padding: 35px; text-align: center; cursor: pointer; transition: 0.3s; background: #fafafa; }
+        .image-upload-area:hover { border-color: var(--accent); background: #f0f7ff; }
+
+        .btn-submit { background: var(--accent); color: #fff; padding: 16px; border-radius: 12px; border: none; font-weight: 800; width: 100%; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #2563eb; transform: translateY(-2px); }
+
+        /* --- OVERLAY --- */
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1050; backdrop-filter: blur(2px); }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:30px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav>
+            <a href="dashboard.html" class="nav-link"><i>📊</i> Dashboard</a>
+            <a href="hizmet-listele.html" class="nav-link"><i>🛠️</i> Hizmetler</a>
+            <a href="haber-listele.html" class="nav-link active"><i>📰</i> Haberler</a>
+            <a href="galeri-listele.html" class="nav-link"><i>📸</i> Galeri</a>
+            <a href="site-ayarlari.html" class="nav-link"><i>⚙️</i> Ayarlar</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
+            <a href="haber-listele.html" style="text-decoration:none; color:var(--text-muted); font-weight:700;">← Geri</a>
+            <h1 style="font-weight: 800; font-size: 1.6rem;">Yeni Haber Yaz</h1>
+        </div>
+
+        <form action="#" class="form-grid">
+            <div class="left-col">
+                <div class="card">
+                    <div class="card-title">📝 İçerik Bilgileri</div>
+                    <div class="form-group">
+                        <label>Haber Başlığı</label>
+                        <input type="text" placeholder="Haber başlığını buraya girin...">
+                    </div>
+                    <div class="form-group">
+                        <label>Kısa Özet (Spot Metin)</label>
+                        <textarea rows="3" placeholder="Haberin giriş metni..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Haber Detayı</label>
+                        <textarea rows="12" placeholder="Haberin tamamını buraya yazın..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="card">
+                    <div class="card-title">⚙️ Yayın Seçenekleri</div>
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select>
+                            <option>Kurumsal</option>
+                            <option>Duyurular</option>
+                            <option>Teknoloji</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Durum</label>
+                        <select>
+                            <option>Yayında</option>
+                            <option>Taslak</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🖼️ Kapak Resmi</div>
+                    <div class="image-upload-area">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📸</div>
+                        <p style="font-size: 0.85rem; font-weight: 700;">Resim Yükle</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Haberi Yayınla</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Hamburger menü ve sol menü kontrolü
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

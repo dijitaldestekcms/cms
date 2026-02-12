@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hizmet Yönetimi | UltraPro Yönetim Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+            --danger: #ef4444; --success: #10b981;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* --- MASTER SIDEBAR --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1000; transition: 0.3s; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .sidebar-logo span { color: var(--accent); }
+        .menu-category { font-size: 10px; font-weight: 800; color: #475569; margin: 25px 0 10px 10px; letter-spacing: 1px; }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; transition: 0.2s; }
+        .nav-link i { margin-right: 12px; font-style: normal; font-size: 1.1rem; }
+        .nav-link:hover, .nav-link.active { background: var(--accent); color: #fff; }
+
+        /* --- MAIN CONTENT --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; display: flex; flex-direction: column; }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: #fff; padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 900; justify-content: space-between; align-items: center; }
+        @media (max-width: 1024px) { 
+            .mobile-header { display: flex; } 
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding-top: 80px; }
+        }
+
+        /* --- PAGE HEADER --- */
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .btn-new { background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); }
+
+        /* --- DATA TABLE --- */
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8fafc; padding: 18px 20px; text-align: left; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); border-bottom: 1px solid var(--border); text-transform: uppercase; }
+        td { padding: 15px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+        tr:hover { background: #fbfcfe; }
+
+        .service-img { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; background: #f1f5f9; border: 1px solid var(--border); }
+        .status-pill { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 0.8rem; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        .actions { display: flex; gap: 8px; justify-content: flex-end; }
+        .btn-action { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; background: var(--white); text-decoration: none; }
+        .btn-edit:hover { border-color: var(--accent); color: var(--accent); background: #eff6ff; }
+        .btn-delete:hover { border-color: var(--danger); color: var(--danger); background: #fef2f2; }
+
+        .admin-footer { margin-top: auto; padding: 30px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
+
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:25px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav class="nav-menu">
+            <div class="menu-category">GENEL</div>
+            <a href="dashboard.html" class="nav-link"><i>📊</i> Dashboard</a>
+            
+            <div class="menu-category">İÇERİK YÖNETİMİ</div>
+            <a href="hizmet-listele.html" class="nav-link active"><i>🛠️</i> Hizmetler</a>
+            <a href="haber-listele.html" class="nav-link"><i>📰</i> Haberler</a>
+            <a href="ekip-listele.html" class="nav-link"><i>👥</i> Ekip Üyeleri</a>
+            <a href="galeri-listele.html" class="nav-link"><i>📸</i> Galeri</a>
+
+            <div class="menu-category">SİSTEM</div>
+            <a href="mesajlar.html" class="nav-link"><i>📥</i> Mesajlar</a>
+            <a href="site-ayarlari.html" class="nav-link"><i>⚙️</i> Genel Ayarlar</a>
+            
+            <a href="#" class="nav-link" style="margin-top:40px; color:var(--danger)"><i>🚪</i> Çıkış Yap</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <div>
+                <h1 style="font-size: 1.8rem; font-weight: 800;">Hizmet Listesi</h1>
+                <p style="color: var(--text-muted);">Müşterilerinize sunduğunuz tüm çözümleri buradan yönetin.</p>
+            </div>
+            <a href="hizmet-ekle.html" class="btn-new">+ Yeni Hizmet Ekle</a>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Görsel</th>
+                        <th>Hizmet Bilgisi</th>
+                        <th>Kategori</th>
+                        <th>Sıra No</th>
+                        <th>Durum</th>
+                        <th style="width: 120px; text-align: right;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="https://via.placeholder.com/100/3b82f6/ffffff?text=W" class="service-img"></td>
+                        <td>
+                            <div style="font-weight: 700; color: var(--text-main);">Web Tasarım & Yazılım</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Kurumsal web çözümleri...</div>
+                        </td>
+                        <td><span style="font-weight: 600;">Yazılım</span></td>
+                        <td><span style="font-weight: 800;">1</span></td>
+                        <td>
+                            <div class="status-pill" style="color: var(--success);">
+                                <div class="dot" style="background: var(--success);"></div> Aktif
+                            </div>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <a href="hizmet-duzenle.html" class="btn-action btn-edit" title="Düzenle">✏️</a>
+                                <a href="#" class="btn-action btn-delete" title="Sil">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://via.placeholder.com/100/10b981/ffffff?text=M" class="service-img"></td>
+                        <td>
+                            <div style="font-weight: 700; color: var(--text-main);">Mobil Uygulama Geliştirme</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">iOS & Android native...</div>
+                        </td>
+                        <td><span style="font-weight: 600;">Mobil</span></td>
+                        <td><span style="font-weight: 800;">2</span></td>
+                        <td>
+                            <div class="status-pill" style="color: var(--success);">
+                                <div class="dot" style="background: var(--success);"></div> Aktif
+                            </div>
+                        </td>
+                        <td>
+                            <div class="actions">
+                                <a href="#" class="btn-action btn-edit">✏️</a>
+                                <a href="#" class="btn-action btn-delete">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="admin-footer">
+            <p>&copy; 2026 <strong>UltraPro</strong> Dashboard</p>
+            <p>Admin v2.4.0</p>
+        </footer>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

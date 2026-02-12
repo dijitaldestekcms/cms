@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipariş Detayı #5502 | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        /* --- SIDEBAR --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1100; transition: transform 0.3s ease; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; transition: 0.2s; }
+        .nav-link:hover, .nav-link.active { background: rgba(59, 130, 246, 0.1); color: #fff; }
+        .nav-link.active { background: var(--accent); }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 1000; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .hamburger span { width: 100%; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+
+        /* --- CONTENT AREA --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .mobile-header { display: flex; }
+            .main-content { margin-left: 0; width: 100%; padding: 20px; padding-top: 85px; }
+            .detail-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* --- DETAIL LAYOUT --- */
+        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; max-width: 1400px; }
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 25px; margin-bottom: 25px; }
+        .card-title { font-size: 1rem; font-weight: 800; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        
+        .order-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .order-item:last-child { border-bottom: none; }
+        
+        .info-group { margin-bottom: 15px; }
+        .info-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+        .info-group p { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+
+        select, button { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); outline: none; font-size: 0.9rem; }
+        .btn-update { background: var(--accent); color: #fff; border: none; font-weight: 800; margin-top: 10px; cursor: pointer; transition: 0.3s; }
+        .btn-update:hover { background: #2563eb; }
+
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1050; backdrop-filter: blur(2px); }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:30px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav>
+            <a href="dashboard.html" class="nav-link">📊 Dashboard</a>
+            <a href="siparis-listele.html" class="nav-link active">🛒 Siparişler</a>
+            <a href="urun-listele.html" class="nav-link">📦 Ürün Yönetimi</a>
+            <a href="urun-kategori-listele.html" class="nav-link">📁 Kategoriler</a>
+            <a href="site-ayarlari.html" class="nav-link">⚙️ Ayarlar</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div style="margin-bottom: 30px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <a href="siparis-listele.html" style="text-decoration:none; color:var(--text-muted); font-weight:700;">← Siparişlere Dön</a>
+            <h1 style="font-weight: 800; font-size: 1.6rem;">Sipariş Detayı <span style="color:var(--accent)">#ORD-5502</span></h1>
+        </div>
+
+        <div class="detail-grid">
+            <div class="left-col">
+                <div class="card">
+                    <div class="card-title">📦 Sipariş İçeriği</div>
+                    <div class="order-item">
+                        <div style="display:flex; gap:15px; align-items:center;">
+                            <img src="https://picsum.photos/60/60?v=1" style="border-radius:10px; border:1px solid var(--border);">
+                            <div>
+                                <div style="font-weight:700;">Endüstriyel Hamur Yoğurma Makinesi</div>
+                                <div style="font-size:0.8rem; color:var(--text-muted);">SKU: HY-440 | Adet: 1</div>
+                            </div>
+                        </div>
+                        <div style="font-weight:800;">12.500 ₺</div>
+                    </div>
+                    
+                    <div style="margin-top:25px; padding-top:20px; border-top: 2px solid #f8fafc; text-align:right;">
+                        <div style="display: flex; justify-content: flex-end; gap: 40px; margin-bottom: 10px;">
+                            <span style="color:var(--text-muted)">Ara Toplam:</span>
+                            <span style="font-weight:700">12.500 ₺</span>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; gap: 40px;">
+                            <span style="font-size: 1.2rem; font-weight: 800;">Genel Toplam:</span>
+                            <span style="font-size: 1.2rem; font-weight: 800; color:var(--accent)">12.500 ₺</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📍 Teslimat ve Fatura Adresi</div>
+                    <div class="info-group">
+                        <label>Açık Adres</label>
+                        <p>Örnek Mahallesi, Teknoloji Caddesi, No:42/A Daire: 5 <br> Ümraniye / İSTANBUL</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Sipariş Notu</label>
+                        <p style="font-weight: 400; font-style: italic;">"Lütfen gelmeden 15 dakika önce arayın."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="card">
+                    <div class="card-title">👤 Müşteri Bilgileri</div>
+                    <div class="info-group">
+                        <label>Müşteri Adı</label>
+                        <p>Ahmet Yılmaz</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Telefon</label>
+                        <p>+90 555 123 45 67</p>
+                    </div>
+                    <div class="info-group">
+                        <label>E-Posta</label>
+                        <p>ahmet.yilmaz@example.com</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🔄 Sipariş Durumu</div>
+                    <div class="form-group">
+                        <label style="font-size:0.75rem; font-weight:700; margin-bottom:8px; display:block;">GÜNCEL DURUMU SEÇİN</label>
+                        <select>
+                            <option>Yeni Sipariş</option>
+                            <option selected>Hazırlanıyor</option>
+                            <option>Kargoya Verildi</option>
+                            <option>Tamamlandı</option>
+                            <option>İptal Edildi</option>
+                        </select>
+                        <button class="btn-update">Durumu Güncelle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

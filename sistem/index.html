@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltraPro | Yönetim Paneli Girişi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-admin: #0f172a; /* Derin lacivert/siyah */
+            --accent-admin: #3b82f6; /* Güven veren mavi */
+            --text-light: #f8fafc;
+            --input-bg: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.01);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background: var(--bg-admin);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Arka plan dekoratif dokunuş (Soyut bir derinlik için) */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+            top: -10%; right: -10%;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 50px;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+        .logo span { color: var(--accent-admin); }
+
+        .login-header h1 {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .login-header p {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-admin);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-admin);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        /* Hata Mesajı Stili (Backend'den gelirse) */
+        .error-msg {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: none; /* JS ile gösterilecek */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo">ULTRA<span>PRO</span> SYSTEM</div>
+        
+        <div class="login-header">
+            <h1>Hoş Geldiniz</h1>
+            <p>Lütfen yönetici kimliğinizi doğrulayın.</p>
+        </div>
+
+        <div class="error-msg" id="error">Hatalı kullanıcı adı veya şifre!</div>
+
+        <form action="dashboard.html" method="POST">
+            <div class="form-group">
+                <label>E-Posta Adresi</label>
+                <input type="email" placeholder="admin@ultrapro.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="login-btn">Sisteme Giriş Yap</button>
+        </form>
+
+        <div class="footer-note">
+            &copy; 2026 UltraPro v2.0 Enterprise
+        </div>
+    </div>
+
+</body>
+</html>

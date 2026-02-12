@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Listesi | UltraPro Yönetim Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Menü açıkken arka plan kaymasını engelleme */
+        body.menu-open { overflow: hidden; }
+
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        /* --- SIDEBAR --- */
+        .sidebar { 
+            width: var(--sidebar-width); 
+            background: var(--sidebar-bg); 
+            color: #fff; 
+            padding: 30px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            position: fixed; 
+            height: 100vh; 
+            z-index: 1100; 
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto; 
+        }
+        @media (max-width: 1024px) { .sidebar { transform: translateX(-100%); } .sidebar.active { transform: translateX(0); } }
+        
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 30px; padding-left: 15px; }
+        .sidebar-logo span { color: var(--accent); }
+        
+        .menu-category { font-size: 11px; font-weight: 800; color: #475569; margin: 25px 0 10px 18px; letter-spacing: 1.5px; text-transform: uppercase; }
+        .nav-link { display: flex; align-items: center; padding: 12px 18px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; transition: all 0.2s ease; margin-bottom: 4px; }
+        .nav-link i { margin-right: 12px; font-style: normal; font-size: 1.1rem; width: 24px; text-align: center; }
+        .nav-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .nav-link.active { background: var(--accent); color: #fff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 1050; justify-content: space-between; align-items: center; }
+        @media (max-width: 1024px) { .mobile-header { display: flex; } }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .hamburger span { width: 100%; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+
+        /* --- CONTENT --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+        @media (max-width: 1024px) { .main-content { margin-left: 0; width: 100%; padding-top: 90px; } }
+
+        /* --- TABLE & LIST STYLE --- */
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+        .btn-add { background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 0.9rem; transition: 0.3s; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); }
+        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3); }
+
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+        .table-res { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th { text-align: left; padding: 15px 20px; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); background: #f8fafc; border-bottom: 1px solid var(--border); text-transform: uppercase; }
+        td { padding: 18px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+
+        .badge { padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-info { background: #eff6ff; color: #1e40af; }
+        .badge-gray { background: #f1f5f9; color: #475569; }
+
+        .actions { display: flex; gap: 8px; justify-content: flex-end; }
+        .btn-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid var(--border); text-decoration: none; transition: 0.2s; background: #fff; }
+        .btn-icon:hover { background: #f8fafc; border-color: var(--accent); color: var(--accent); }
+        .btn-delete:hover { border-color: #ef4444; color: #ef4444; background: #fef2f2; }
+
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1080; backdrop-filter: blur(3px); }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:30px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav class="nav-menu">
+            <div class="menu-category">GENEL BAKIŞ</div>
+            <a href="dashboard.html" class="nav-link"><i>📊</i> Dashboard</a>
+            <a href="mesajlar.html" class="nav-link"><i>📥</i> Gelen Mesajlar</a>
+
+            <div class="menu-category">SAYFA YÖNETİMİ</div>
+            <a href="sayfa-listele.html" class="nav-link active"><i>📄</i> Tüm Sayfalar</a>
+            <a href="sayfa-ekle.html" class="nav-link"><i>➕</i> Yeni Sayfa Ekle</a>
+
+            <div class="menu-category">MAĞAZA YÖNETİMİ</div>
+            <a href="siparis-listele.html" class="nav-link"><i>🛒</i> Siparişler</a>
+            <a href="urun-listele.html" class="nav-link"><i>📦</i> Ürün Listesi</a>
+            <a href="urun-kategori-listele.html" class="nav-link"><i>📁</i> Kategoriler</a>
+
+            <div class="menu-category">AYARLAR</div>
+            <a href="site-ayarlari.html" class="nav-link"><i>⚙️</i> Genel Ayarlar</a>
+            <a href="logout.php" class="nav-link" style="color: #ef4444;"><i>🚪</i> Çıkış Yap</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header">
+            <div>
+                <h1 style="font-weight: 800; font-size: 1.8rem;">Ek Sayfalar</h1>
+                <p style="color:var(--text-muted); font-size: 0.9rem;">Sitenizdeki özel içerikli sayfaları buradan yönetin.</p>
+            </div>
+            <a href="sayfa-ekle.html" class="btn-add">+ Yeni Sayfa Oluştur</a>
+        </div>
+
+        <div class="card">
+            <div class="table-res">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sayfa Başlığı</th>
+                            <th>Menü İsmi</th>
+                            <th>Menü Durumu</th>
+                            <th>Yayın Durumu</th>
+                            <th style="text-align: right;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hakkımızda</strong></td>
+                            <td>Kurumsal</td>
+                            <td><span class="badge badge-info">MENÜDE AKTİF</span></td>
+                            <td><span class="badge badge-success">YAYINDA</span></td>
+                            <td>
+                                <div class="actions">
+                                    <a href="#" class="btn-icon" title="Düzenle">✏️</a>
+                                    <a href="#" class="btn-icon btn-delete" title="Sil">🗑️</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kullanım Koşulları</strong></td>
+                            <td>Yasal Haklar</td>
+                            <td><span class="badge badge-gray">GİZLİ (SADECE FOOTER)</span></td>
+                            <td><span class="badge badge-success">YAYINDA</span></td>
+                            <td>
+                                <div class="actions">
+                                    <a href="#" class="btn-icon" title="Düzenle">✏️</a>
+                                    <a href="#" class="btn-icon btn-delete" title="Sil">🗑️</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vizyon & Misyon</strong></td>
+                            <td>Gelecek Hedefleri</td>
+                            <td><span class="badge badge-info">MENÜDE AKTİF</span></td>
+                            <td><span class="badge badge-gray" style="background:#fef9c3; color:#854d0e;">TASLAK</span></td>
+                            <td>
+                                <div class="actions">
+                                    <a href="#" class="btn-icon" title="Düzenle">✏️</a>
+                                    <a href="#" class="btn-icon btn-delete" title="Sil">🗑️</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                body.classList.add('menu-open');
+            } else {
+                body.classList.remove('menu-open');
+            }
+        }
+    </script>
+</body>
+</html>

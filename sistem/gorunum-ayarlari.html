@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görünüm ve Tema Ayarları | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        /* --- SIDEBAR (SABİT) --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1000; transition: transform 0.3s ease; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 50px; padding-left: 15px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 14px 18px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { background: rgba(59, 130, 246, 0.1); color: #fff; }
+        .nav-link.active { background: var(--accent); }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 900; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; width: 30px; }
+        .hamburger span { width: 100%; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+
+        /* --- MAIN CONTENT --- */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .mobile-header { display: flex; }
+            .main-content { margin-left: 0; width: 100%; padding: 20px; padding-top: 80px; }
+            .theme-grid { grid-template-columns: 1fr !important; } /* Mobilde temalar alt alta */
+        }
+
+        /* --- TEMA SEÇİM ALANI --- */
+        .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 40px; }
+        
+        .theme-card { 
+            background: var(--white); border: 2px solid var(--border); border-radius: var(--radius); 
+            padding: 12px; cursor: pointer; transition: 0.3s; position: relative;
+        }
+        .theme-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .theme-card.active { border-color: var(--accent); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.1); }
+        
+        .theme-preview { 
+            width: 100%; height: 160px; background: #f1f5f9; border-radius: 10px; margin-bottom: 15px; 
+            background-size: cover; background-position: top; border: 1px solid var(--border);
+        }
+        
+        .theme-info { text-align: center; padding: 5px; }
+        .theme-info h3 { font-size: 0.95rem; font-weight: 800; margin-bottom: 5px; }
+        .theme-info p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+        .check-badge { 
+            position: absolute; top: -10px; right: -10px; background: var(--accent); color: #fff; 
+            width: 28px; height: 28px; border-radius: 50%; display: none; align-items: center; justify-content: center; 
+            font-size: 14px; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4); z-index: 2;
+        }
+        .theme-card.active .check-badge { display: flex; }
+
+        /* --- RENK AYARLARI --- */
+        .color-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 25px; }
+        .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        
+        .color-item { display: flex; align-items: center; gap: 15px; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
+        .color-input-wrapper { width: 45px; height: 45px; border-radius: 10px; overflow: hidden; border: 2px solid var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
+        input[type="color"] { border: none; width: 140%; height: 140%; cursor: pointer; transform: translate(-15%, -15%); }
+        
+        .color-text h4 { font-size: 0.85rem; font-weight: 800; }
+        .color-text span { font-size: 0.75rem; color: var(--text-muted); font-family: monospace; }
+
+        .btn-save { 
+            background: var(--accent); color: #fff; padding: 18px 40px; border-radius: 14px; 
+            border: none; font-size: 1rem; font-weight: 800; cursor: pointer; margin-top: 30px; 
+            transition: 0.3s; width: 100%; max-width: 300px;
+        }
+        .btn-save:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
+
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 950; backdrop-filter: blur(2px); }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:30px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-link"><i>📊</i> Dashboard</a>
+            <a href="site-ayarlari.html" class="nav-link"><i>⚙️</i> Site Ayarları</a>
+            <a href="gorunum-ayarlari.html" class="nav-link active"><i>🎨</i> Görünüm Ayarları</a>
+            <a href="mesajlar.html" class="nav-link"><i>📥</i> Mesajlar</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header style="margin-bottom: 35px;">
+            <h1 style="font-size: 1.8rem; font-weight: 800;">Görünüm & Tema Yönetimi</h1>
+            <p style="color: var(--text-muted);">Sitenizin görsel kimliğini buradan kişiselleştirin.</p>
+        </header>
+
+        <form action="#" method="POST">
+            <h2 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 20px;">1. Site Şablonu Seçin</h2>
+            <div class="theme-grid">
+                <div class="theme-card active" onclick="selectTheme(this, 'tema_modern')">
+                    <div class="check-badge">✓</div>
+                    <div class="theme-preview" style="background-image: url('https://img.freepik.com/free-vector/landing-page-template-design_23-2149190540.jpg');"></div>
+                    <div class="theme-info">
+                        <h3>Modern Minimal</h3>
+                        <p>Yaratıcı ajanslar ve teknoloji şirketleri için ideal.</p>
+                    </div>
+                    <input type="radio" name="selected_theme" value="tema_modern" checked hidden>
+                </div>
+
+                <div class="theme-card" onclick="selectTheme(this, 'tema_kurumsal')">
+                    <div class="check-badge">✓</div>
+                    <div class="theme-preview" style="background-image: url('https://img.freepik.com/free-vector/business-landing-page-template-flat-style_23-2148232810.jpg');"></div>
+                    <div class="theme-info">
+                        <h3>Klasik Kurumsal</h3>
+                        <p>Güven veren, ciddi ve bilgi odaklı profesyonel yapı.</p>
+                    </div>
+                    <input type="radio" name="selected_theme" value="tema_kurumsal" hidden>
+                </div>
+
+                <div class="theme-card" onclick="selectTheme(this, 'tema_creative')">
+                    <div class="check-badge">✓</div>
+                    <div class="theme-preview" style="background-image: url('https://img.freepik.com/free-vector/dark-landing-page-template-concept_23-2148332141.jpg');"></div>
+                    <div class="theme-info">
+                        <h3>Kreatif Gece</h3>
+                        <p>Görselin ön planda olduğu, etkileyici koyu tasarım.</p>
+                    </div>
+                    <input type="radio" name="selected_theme" value="tema_creative" hidden>
+                </div>
+            </div>
+
+            <h2 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 20px;">2. Kurumsal Renk Paleti</h2>
+            <div class="color-card">
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-input-wrapper">
+                            <input type="color" name="primary_color" value="#3b82f6" oninput="updateHex(this, 'hex1')">
+                        </div>
+                        <div class="color-text">
+                            <h4>Ana Renk</h4>
+                            <span id="hex1">#3B82F6</span>
+                        </div>
+                    </div>
+
+                    <div class="color-item">
+                        <div class="color-input-wrapper">
+                            <input type="color" name="accent_color" value="#10b981" oninput="updateHex(this, 'hex2')">
+                        </div>
+                        <div class="color-text">
+                            <h4>Vurgu (Hover)</h4>
+                            <span id="hex2">#10B981</span>
+                        </div>
+                    </div>
+
+                    <div class="color-item">
+                        <div class="color-input-wrapper">
+                            <input type="color" name="button_text_color" value="#ffffff" oninput="updateHex(this, 'hex3')">
+                        </div>
+                        <div class="color-text">
+                            <h4>Buton Yazı Rengi</h4>
+                            <span id="hex3">#FFFFFF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; padding: 15px; background: #eff6ff; border-radius: 12px; font-size: 0.8rem; color: #1e40af; line-height: 1.5;">
+                    <strong>💡 Bilgi:</strong> Renk seçimleriniz sitenizin CSS değişkenlerine anlık olarak aktarılır ve tüm arayüzde bütünlük sağlar.
+                </div>
+            </div>
+
+            <button type="submit" class="btn-save">Değişiklikleri Kaydet</button>
+        </form>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function selectTheme(element, value) {
+            document.querySelectorAll('.theme-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+            element.querySelector('input[type="radio"]').checked = true;
+        }
+
+        function updateHex(input, targetId) {
+            document.getElementById(targetId).innerText = input.value.toUpperCase();
+        }
+    </script>
+</body>
+</html>

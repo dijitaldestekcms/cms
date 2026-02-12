@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Ekle | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6; --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff; --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1100; transition: 0.3s; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; }
+        .nav-link.active { background: var(--accent); color: #fff; }
+
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 1000; justify-content: space-between; }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--sidebar-bg); }
+
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .mobile-header { display: flex; }
+            .main-content { margin-left: 0; width: 100%; padding-top: 85px; }
+        }
+
+        .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 25px; max-width: 600px; }
+        .form-group { margin-bottom: 20px; }
+        label { font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 8px; }
+        input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border); outline: none; }
+        .btn-submit { background: var(--accent); color: #fff; padding: 15px; border-radius: 12px; border: none; font-weight: 800; width: 100%; cursor: pointer; margin-top: 10px; }
+        
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1050; }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+        <div style="font-weight:800">ULTRA<span>PRO</span></div>
+        <div></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav>
+            <a href="urun-listele.html" class="nav-link">📦 Ürün Yönetimi</a>
+            <a href="urun-kategori-listele.html" class="nav-link active">📁 Ürün Kategorileri</a>
+            <a href="slider-listele.html" class="nav-link">🖼️ Slider</a>
+            <a href="duyuru-listele.html" class="nav-link">📣 Duyurular</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div style="margin-bottom: 30px;">
+            <a href="urun-kategori-listele.html" style="text-decoration:none; color:var(--text-muted); font-weight:700;">← Geri Dön</a>
+            <h1 style="font-weight: 800; margin-top: 10px;">Yeni Kategori Ekle</h1>
+        </div>
+
+        <div class="card">
+            <div class="form-group">
+                <label>Kategori Adı</label>
+                <input type="text" placeholder="Örn: Endüstriyel Mutfak">
+            </div>
+            <div class="form-group">
+                <label>Sıralama No</label>
+                <input type="number" value="1">
+            </div>
+            <div class="form-group">
+                <label>Durum</label>
+                <select><option>Aktif</option><option>Pasif</option></select>
+            </div>
+            <button class="btn-submit">Kategoriyi Kaydet</button>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

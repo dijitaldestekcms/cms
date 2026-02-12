@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekip Yönetimi | UltraPro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a; --main-bg: #f8fafc; --accent: #3b82f6;
+            --text-main: #1e293b; --text-muted: #64748b; --white: #ffffff;
+            --border: #e2e8f0; --radius: 16px; --sidebar-width: 280px;
+            --danger: #ef4444; --success: #10b981;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--main-bg); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR & CONTENT STRUCTURE --- */
+        .sidebar { width: var(--sidebar-width); background: var(--sidebar-bg); color: #fff; padding: 30px 20px; position: fixed; height: 100vh; z-index: 1000; transition: 0.3s; }
+        .sidebar-logo { font-size: 1.4rem; font-weight: 800; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .sidebar-logo span { color: var(--accent); }
+        .nav-link { display: flex; align-items: center; padding: 12px 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; font-weight: 600; margin-bottom: 4px; }
+        .nav-link.active { background: var(--accent); color: #fff; }
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 40px; transition: 0.3s; }
+
+        /* --- MOBILE HEADER --- */
+        .mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; background: #fff; padding: 15px 20px; border-bottom: 1px solid var(--border); z-index: 900; justify-content: space-between; align-items: center; }
+        .hamburger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--sidebar-bg); border-radius: 2px; }
+
+        @media (max-width: 1024px) { 
+            .mobile-header { display: flex; } 
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding-top: 80px; padding-inline: 20px; }
+            .page-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .btn-new { width: 100%; text-align: center; }
+        }
+
+        /* --- DATA TABLE --- */
+        .table-responsive { width: 100%; overflow-x: auto; background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); }
+        table { width: 100%; min-width: 700px; border-collapse: collapse; }
+        th { background: #f8fafc; padding: 18px 20px; text-align: left; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); border-bottom: 1px solid var(--border); text-transform: uppercase; }
+        td { padding: 15px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+
+        .member-info { display: flex; align-items: center; gap: 12px; }
+        .member-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+
+        .actions { display: flex; gap: 8px; justify-content: flex-end; }
+        .btn-action { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.2s; }
+        .btn-edit:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        .btn-delete:hover { background: var(--danger); color: white; border-color: var(--danger); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-header">
+        <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+        <div class="sidebar-logo" style="margin:0">ULTRA<span>PRO</span></div>
+        <div style="width:25px"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">ULTRA<span>PRO</span></div>
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-link"><i>📊</i> Dashboard</a>
+            <a href="hizmet-listele.html" class="nav-link"><i>🛠️</i> Hizmetler</a>
+            <a href="ekip-listele.html" class="nav-link active"><i>👥</i> Ekip Üyeleri</a>
+            <a href="site-ayarlari.html" class="nav-link"><i>⚙️</i> Ayarlar</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+            <div>
+                <h1 style="font-weight: 800; font-size: 1.6rem;">Ekip Yönetimi</h1>
+                <p style="color:var(--text-muted);">Takım üyelerinizi ve rollerini düzenleyin.</p>
+            </div>
+            <a href="ekip-ekle.html" class="btn-new" style="background:var(--accent); color:#fff; padding:12px 24px; border-radius:10px; text-decoration:none; font-weight:700;">+ Yeni Üye Ekle</a>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Üye Bilgisi</th>
+                        <th>Pozisyon</th>
+                        <th>Sıra</th>
+                        <th>Durum</th>
+                        <th style="text-align: right;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="member-info">
+                                <img src="https://i.pravatar.cc/150?img=11" class="member-img">
+                                <div>
+                                    <div style="font-weight: 700;">Ahmet Yılmaz</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-muted);">ahmet@firma.com</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span style="font-weight: 600;">Genel Müdür</span></td>
+                        <td>1</td>
+                        <td><span style="color: var(--success); font-weight: 700;">● Aktif</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="#" class="btn-action btn-edit">✏️</a>
+                                <a href="#" class="btn-action btn-delete">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+    </script>
+</body>
+</html>
