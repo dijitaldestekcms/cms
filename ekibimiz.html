@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uzman Ekibimiz | UltraPro</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .page-header { padding: 160px 0 80px; background: var(--bg-sub); text-align: center; }
+        .team-page-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+            padding: 80px 0; 
+        }
+        .team-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .team-card:hover { transform: translateY(-15px); box-shadow: var(--shadow-lg); }
+        .team-card .avatar { 
+            width: 140px; height: 140px; border-radius: 50%; 
+            background: var(--bg-sub); margin: 0 auto 25px; 
+            border: 5px solid var(--bg-sub); transition: var(--transition);
+        }
+        .team-card:hover .avatar { border-color: var(--accent-light); }
+        .team-card h3 { font-size: 1.4rem; margin-bottom: 5px; }
+        .team-card span { color: var(--accent); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
+        .team-card p { margin-top: 15px; color: var(--text-muted); font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">ULTRA<span>PRO</span></a></div>
+                <div class="nav-links">
+                    <a href="index.html">Ana Sayfa</a>
+                    <a href="hizmetler.html">Hizmetler</a>
+                    <a href="ekibimiz.html">Ekibimiz</a>
+                    <a href="makaleler.html">Makaleler</a>
+                    <a href="haberler.html">Haberler</a>
+                    <a href="galeri.html">Galeri</a>
+                    <a href="referanslar.html">Referanslar</a>
+                </div>
+                <div class="hamburger"><span></span><span></span><span></span></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px;">Yaratıcı Zihinler</h1>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 20px auto 0;">15 yıllık deneyimimizi, her biri alanında uzman profesyonellerden oluşan ekibimizle birleştiriyoruz.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="team-page-grid">
+                <a href="ekip-detay.html" class="team-card">
+                    <div class="avatar"></div>
+                    <h3>Murat Can</h3>
+                    <span>CEO & Kurucu</span>
+                    <p>Dijital strateji ve teknoloji yönetimi konusunda 15+ yıl deneyim.</p>
+                </a>
+                <a href="ekip-detay.html" class="team-card">
+                    <div class="avatar"></div>
+                    <h3>Ece Yılmaz</h3>
+                    <span>Sanat Yönetmeni</span>
+                    <p>Görsel hikaye anlatıcılığı ve modern arayüz tasarımı uzmanı.</p>
+                </a>
+                <a href="ekip-detay.html" class="team-card">
+                    <div class="avatar"></div>
+                    <h3>Sinan Aras</h3>
+                    <span>Teknoloji Lideri</span>
+                    <p>Yüksek performanslı web mimarileri ve güvenli yazılım çözümleri.</p>
+                </a>
+                <a href="ekip-detay.html" class="team-card">
+                    <div class="avatar"></div>
+                    <h3>Aslı Demir</h3>
+                    <span>SEO Uzmanı</span>
+                    <p>Arama motoru algoritmaları ve veri analitiği stratejisti.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="color:#fff">ULTRA<span>PRO</span></div>
+                    <p style="margin-top:20px; color:#94a3b8">15 yıllık tecrübeyle markanızı dijital dünyada geleceğe taşıyoruz.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Kurumsal</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="ekibimiz.html">Ekibimiz</a></li>
+                        <li><a href="referanslar.html">Referanslar</a></li>
+                        <li><a href="haberler.html">Haberler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizmetler</h4>
+                    <ul class="footer-links">
+                        <li><a href="hizmetler.html">Web Tasarım</a></li>
+                        <li><a href="hizmetler.html">Yazılım Geliştirme</a></li>
+                        <li><a href="hizmetler.html">Dijital Pazarlama</a></li>
+                        <li><a href="hizmetler.html">SEO</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bize Ulaşın</h4>
+                    <ul class="footer-contact-info" style="list-style:none;">
+                        <li style="color:#94a3b8; margin-bottom:10px;">📍 Maslak Plaza, İstanbul</li>
+                        <li style="color:#94a3b8; margin-bottom:10px;">📞 +90 (212) 555 00 00</li>
+                        <li style="color:#94a3b8;">✉️ info@ultrapro.com.tr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 UltraPro Dijital. Tüm Hakları Saklıdır.</p>
+                <div style="display:flex; gap:20px;">
+                    <a href="#" style="color:inherit; text-decoration:none;">KVKK</a>
+                    <a href="#" style="color:inherit; text-decoration:none;">Gizlilik</a>
+                    <a href="#" style="color:inherit; text-decoration:none;">Çerezler</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/engine.js"></script>
+</body>
+</html>

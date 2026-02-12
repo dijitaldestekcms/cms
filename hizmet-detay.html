@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Tasarım & Yazılım | UltraPro Detay</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Hizmet Detayına Özel Gelişmiş Stil Katmanı */
+        .detail-header {
+            padding: 160px 0 60px;
+            background: var(--bg-sub);
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 700; }
+
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            padding-bottom: 100px;
+        }
+
+        .content-area h2 { font-size: 2.2rem; margin: 40px 0 20px; font-weight: 800; }
+        .content-area p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; line-height: 1.8; }
+        
+        .main-image {
+            width: 100%;
+            height: 450px;
+            background: #cbd5e1;
+            border-radius: var(--radius-lg);
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .feature-list li {
+            background: var(--bg-sub);
+            padding: 15px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-list li::before { content: '✓'; color: var(--accent); font-weight: 900; }
+
+        /* Sağ Taraf: Yapışkan Form Kartı */
+        .sticky-sidebar { position: sticky; top: 120px; }
+        .contact-card {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .contact-card h3 { margin-bottom: 20px; font-weight: 800; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 5px; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-group input:focus { border-color: var(--accent); }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); }
+
+        @media (max-width: 992px) {
+            .detail-layout { grid-template-columns: 1fr; }
+            .sticky-sidebar { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">ULTRA<span>PRO</span></a></div>
+                <div class="nav-links">
+                    <a href="index.html">Ana Sayfa</a>
+                    <a href="hizmetler.html">Hizmetler</a>
+                    <a href="ekibimiz.html">Ekibimiz</a>
+                    <a href="makaleler.html">Makaleler</a>
+                    <a href="haberler.html">Haberler</a>
+                    <a href="galeri.html">Galeri</a>
+                    <a href="referanslar.html">Referanslar</a>
+                </div>
+                <div class="hamburger"><span></span><span></span><span></span></div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="detail-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Ana Sayfa</a> / <a href="hizmetler.html">Hizmetler</a> / Web Tasarım
+            </div>
+            <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px;">Web Tasarım & Yazılım</h1>
+        </div>
+    </section>
+
+    <section class="container" style="margin-top: 60px;">
+        <div class="detail-layout">
+            
+            <div class="content-area">
+                <div class="main-image"></div>
+                
+                <h2>Geleceği Web Üzerinden İnşa Edin</h2>
+                <p>15 yıllık tecrübemizle, sadece bir web sitesi değil, markanızın 7/24 çalışan bir satış ve tanıtım temsilcisini kurguluyoruz. Kullandığımız modern teknolojiler (React, Next.js, Node.js) sayesinde en hızlı yükleme sürelerini garanti ediyoruz.</p>
+                
+                <ul class="feature-list">
+                    <li>%100 Responsive Tasarım</li>
+                    <li>SEO Uyumlu Altyapı</li>
+                    <li>Yönetim Paneli Desteği</li>
+                    <li>Yüksek Güvenlik Protokolü</li>
+                    <li>E-Ticaret Entegrasyonu</li>
+                    <li>Özel API Geliştirme</li>
+                </ul>
+
+                <h2>Neden Bizi Tercih Etmelisiniz?</h2>
+                <p>Dijital dünyada saniyelerin önemi büyüktür. Kullanıcıların %40'ı 3 saniyeden geç açılan web sitelerini terk eder. Biz, performans odaklı kod yapımızla kullanıcıyı sitenizde tutuyoruz. Ayrıca, Google'ın en son algoritma güncellemelerine (Core Web Vitals) tam uyum sağlıyoruz.</p>
+            </div>
+
+            <div class="sidebar">
+                <div class="sticky-sidebar">
+                    <div class="contact-card">
+                        <h3>Hızlı Teklif Al</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Bu hizmet hakkında detaylı bilgi ve fiyat teklifi için formu doldurun.</p>
+                        
+                        <form>
+                            <div class="form-group">
+                                <label>Adınız Soyadınız</label>
+                                <input type="text" placeholder="Örn: Ahmet Yılmaz">
+                            </div>
+                            <div class="form-group">
+                                <label>E-Posta Adresiniz</label>
+                                <input type="email" placeholder="ahmet@sirket.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon</label>
+                                <input type="tel" placeholder="05xx xxx xx xx">
+                            </div>
+                            <div class="form-group">
+                                <label>Mesajınız</label>
+                                <textarea rows="4" placeholder="Projenizden kısaca bahsedin..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Hemen Gönder</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="color:#fff">ULTRA<span>PRO</span></div>
+                    <p style="margin-top:20px; color:#94a3b8">15 yıllık tecrübeyle markanızı dijital dünyada geleceğe taşıyoruz.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Kurumsal</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="ekibimiz.html">Ekibimiz</a></li>
+                        <li><a href="referanslar.html">Referanslar</a></li>
+                        <li><a href="haberler.html">Haberler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizmetler</h4>
+                    <ul class="footer-links">
+                        <li><a href="hizmetler.html">Web Tasarım</a></li>
+                        <li><a href="hizmetler.html">Yazılım Geliştirme</a></li>
+                        <li><a href="hizmetler.html">Dijital Pazarlama</a></li>
+                        <li><a href="hizmetler.html">SEO</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bize Ulaşın</h4>
+                    <ul class="footer-contact-info" style="list-style:none;">
+                        <li style="color:#94a3b8; margin-bottom:10px;">📍 Maslak Plaza, İstanbul</li>
+                        <li style="color:#94a3b8; margin-bottom:10px;">📞 +90 (212) 555 00 00</li>
+                        <li style="color:#94a3b8;">✉️ info@ultrapro.com.tr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 UltraPro Dijital. Tüm Hakları Saklıdır.</p>
+                <div style="display:flex; gap:20px;">
+                    <a href="#" style="color:inherit; text-decoration:none;">KVKK</a>
+                    <a href="#" style="color:inherit; text-decoration:none;">Gizlilik</a>
+                    <a href="#" style="color:inherit; text-decoration:none;">Çerezler</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatçı Portfolyosu | UltraPro v3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8f7f4;       /* Kağıt Beyazı */
+            --dark: #1a1a1a;     /* Antrasit */
+            --accent: #8b735b;   /* Soft Bronz */
+            --white: #ffffff;
+            --border: rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--dark); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
+
+        /* --- NAV --- */
+        nav { padding: 30px 0; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; text-decoration: none; color: var(--dark); }
+        .nav-links a { margin-left: 30px; text-decoration: none; color: var(--dark); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- HERO: HAKKIMDA --- */
+        .hero { padding: 80px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-img { width: 100%; height: 500px; background: #e0e0e0; border-radius: 4px; object-fit: cover; }
+        .hero-text h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 25px; }
+        .hero-text p { color: #555; margin-bottom: 30px; font-size: 1.1rem; }
+
+        /* --- GALERİ (KÜÇÜK VE ŞIK) --- */
+        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .photo-card { background: var(--white); padding: 10px; border: 1px solid var(--border); transition: 0.3s; }
+        .photo-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .photo-card img { width: 100%; height: 250px; object-fit: cover; display: block; }
+        .photo-card h3 { font-size: 0.9rem; margin-top: 15px; text-align: center; color: var(--accent); }
+
+        /* --- MULTIMEDIA (YOUTUBE & MAKALELER) --- */
+        .multi-section { padding: 100px 0; background: var(--white); margin-top: 100px; }
+        .multi-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; }
+        
+        .video-box { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; }
+        .video-box iframe { position: absolute; width: 100%; height: 100%; border: 0; }
+
+        .article-list { display: flex; flex-direction: column; gap: 30px; }
+        .article-item { border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .article-item span { font-size: 0.75rem; color: var(--accent); font-weight: 700; }
+        .article-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin: 5px 0; }
+        .article-item a { text-decoration: none; color: var(--dark); font-size: 0.85rem; font-weight: 600; }
+
+        /* --- SERGİLER --- */
+        .exhibitions { padding: 80px 0; }
+        .ex-table { width: 100%; border-collapse: collapse; }
+        .ex-table tr { border-bottom: 1px solid var(--border); }
+        .ex-table td { padding: 20px 0; }
+        .ex-date { font-weight: 700; color: var(--accent); width: 150px; }
+
+        footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.9rem; color: #888; }
+
+        @media (max-width: 768px) {
+            .hero, .multi-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .hero-img { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-flex">
+            <a href="#" class="logo">M. ALKAN</a>
+            <div class="nav-links">
+                <a href="#eserler">Eserler</a>
+                <a href="#medya">Multimedya</a>
+                <a href="#sergiler">Sergiler</a>
+                <a href="#iletisim">İletişim</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="container hero">
+            <img src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?q=80&w=1470" alt="Artist" class="hero-img">
+            <div class="hero-text">
+                <h1>Işıkla Yazılan <br><em>Hikayeler.</em></h1>
+                <p>20 yılı aşkın süredir vizörün arkasından dünyayı gözlemliyorum. Çalışmalarım, doğanın sessizliği ve şehrin kaosu arasındaki ince çizgiyi araştırıyor.</p>
+                <div style="display:flex; gap:20px;">
+                    <div style="text-align:center;"><h2 style="color:var(--accent)">12</h2><small>SERGİ</small></div>
+                    <div style="text-align:center;"><h2 style="color:var(--accent)">450+</h2><small>ESER</small></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" id="eserler">
+            <h2 class="section-title">Seçili Eserler</h2>
+            <div class="gallery-grid">
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800" alt="Eser 1">
+                    <h3>Yalnızlık Senfonisi</h3>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800" alt="Eser 2">
+                    <h3>Ormanın Ruhu</h3>
+                </div>
+                <div class="photo-card">
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" alt="Eser 3">
+                    <h3>Mavi Saatler</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="multi-section" id="medya">
+            <div class="container">
+                <div class="multi-grid">
+                    <div>
+                        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom:30px;">Son Video</h2>
+                        <div class="video-box">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                        </div>
+                        <p style="margin-top:15px; font-weight:600;">Çekim Teknikleri: Uzun Pozlama</p>
+                    </div>
+
+                    <div>
+                        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom:30px;">Düşünceler</h2>
+                        <div class="article-list">
+                            <div class="article-item">
+                                <span>12 ŞUBAT 2026</span>
+                                <h4>Analog Ruhunu Kaybetmeden Dijitalleşmek</h4>
+                                <a href="#">DEVAMINI OKU →</a>
+                            </div>
+                            <div class="article-item">
+                                <span>05 ŞUBAT 2026</span>
+                                <h4>Sokak Fotoğrafçılığında Görünmez Olmak</h4>
+                                <a href="#">DEVAMINI OKU →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container exhibitions" id="sergiler">
+            <h2 class="section-title">Sergiler & Etkinlikler</h2>
+            <table class="ex-table">
+                <tr>
+                    <td class="ex-date">2025 - MAYIS</td>
+                    <td><strong>Sessiz Işıklar</strong> - Solo Sergi</td>
+                    <td style="text-align:right;">İstanbul Modern</td>
+                </tr>
+                <tr>
+                    <td class="ex-date">2024 - EKİM</td>
+                    <td><strong>Şehrin İzleri</strong> - Karma Sergi</td>
+                    <td style="text-align:right;">Berlin Art Hub</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Murat Alkan Fine Art Photography. Tüm hakları saklıdır.</p>
+            <div style="margin-top:20px;">
+                <a href="#" style="color:var(--dark); margin:0 10px; text-decoration:none;">Instagram</a>
+                <a href="#" style="color:var(--dark); margin:0 10px; text-decoration:none;">YouTube</a>
+                <a href="#" style="color:var(--dark); margin:0 10px; text-decoration:none;">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

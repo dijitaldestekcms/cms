@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltraPro | Premium Ürün Koleksiyonu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --p2-dark: #4A413C;      /* Koyu Toprak / Antrasit */
+            --p2-accent: #BB6C43;    /* Yanık Turuncu / Vurgu */
+            --p2-bg: #EBEFEE;        /* Krem Arka Plan */
+            --p2-beige: #CCB499;     /* Kum Beji */
+            --p2-text: #2d2622;
+            --p2-white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--p2-bg); color: var(--p2-text); overflow-x: hidden; }
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 25px; }
+
+        /* --- HEADER --- */
+        header { 
+            background: var(--p2-dark); 
+            padding: 20px 0; 
+            position: sticky; top: 0; z-index: 1000; 
+        }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--p2-white); text-decoration: none; }
+        .logo span { color: var(--p2-accent); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: #d1d5db; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--p2-accent); }
+
+        /* Hamburger & Mobile Nav */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 28px; height: 3px; background: var(--p2-white); border-radius: 2px; }
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: 300px; height: 100vh; background: var(--p2-dark); z-index: 2000; padding: 80px 40px; transition: 0.5s; display: flex; flex-direction: column; gap: 25px; }
+        .mobile-nav.active { right: 0; }
+        .mobile-nav a { color: var(--p2-white); text-decoration: none; font-size: 1.2rem; font-weight: 700; }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1500; display: none; }
+        .overlay.active { display: block; }
+
+        /* --- MODÜL: PREMIUM SLIDER --- */
+        .premium-slider {
+            width: 100%;
+            height: 60vh;
+            background: linear-gradient(rgba(74, 65, 60, 0.6), rgba(74, 65, 60, 0.6)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .slider-content h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 15px; }
+        .slider-content p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 25px; letter-spacing: 1px; }
+
+        /* --- HERO --- */
+        .hero { padding: 80px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--p2-dark); margin-bottom: 20px; }
+        .hero h1 span { color: var(--p2-accent); }
+
+        /* --- PRODUCT GRID --- */
+        .section-padding { padding: 80px 0; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .product-card { background: var(--p2-white); border-radius: 20px; padding: 30px; transition: 0.4s; border: 1px solid rgba(0,0,0,0.03); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(74,65,60,0.1); }
+        .product-visual { width: 100%; height: 200px; background: var(--p2-bg); border-radius: 12px; margin-top: 20px; }
+
+        /* --- MODÜL: HABERLER (GÜNCEL) --- */
+        .news-section { background: #f4f7f6; padding: 80px 0; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .news-card { background: white; border-left: 5px solid var(--p2-accent); padding: 30px; transition: 0.3s; }
+        .news-card:hover { background: var(--p2-dark); color: white; }
+        .news-date { font-size: 0.8rem; font-weight: 800; color: var(--p2-accent); margin-bottom: 10px; display: block; }
+        .news-card h3 { font-family: 'Playfair Display', serif; margin-bottom: 10px; }
+        .news-card p { font-size: 0.9rem; opacity: 0.8; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--p2-dark); color: var(--p2-white); padding: 60px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .footer-col h4 { color: var(--p2-accent); margin-bottom: 20px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #9ca3af; text-decoration: none; }
+
+        @media (max-width: 992px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .slider-content h2 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#">Ana Sayfa</a>
+        <a href="#">Koleksiyon</a>
+        <a href="#">Haberler</a>
+        <a href="#">İletişim</a>
+    </nav>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo">ULTRA<span>PRO</span></a>
+            <div class="nav-links">
+                <a href="#">Showcase</a>
+                <a href="#">Koleksiyon</a>
+                <a href="#">Haberler</a>
+                <a href="#" style="background:var(--p2-accent); color:white; padding:8px 20px; border-radius:5px;">İletişim</a>
+            </div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="premium-slider">
+        <div class="slider-content">
+            <p>ESTETİK & TEKNOLOJİ</p>
+            <h2>Exclusive Koleksiyon '26</h2>
+            <a href="#" style="color:white; font-weight:700; border-bottom: 2px solid var(--p2-accent); text-decoration:none;">KEŞFET →</a>
+        </div>
+    </section>
+
+    <main>
+        <section class="hero container">
+            <h1>Dijital Dünyada <span>Fark Yaratın.</span></h1>
+            <p>Premium çözümlerimizle markanızı en üst seviyeye taşıyoruz.</p>
+        </section>
+
+        <section class="section-padding container">
+            <div style="margin-bottom: 40px;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem;">Seçkin Ürünler</h2>
+                <div style="width: 50px; height: 3px; background: var(--p2-accent); margin-top: 10px;"></div>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <small style="color:var(--p2-accent); font-weight:800;">LATEST</small>
+                    <h3>Neural Pro Panel</h3>
+                    <p>Kullanıcı odaklı, antrasit detaylı yönetim sistemi.</p>
+                    <div class="product-visual"></div>
+                </div>
+                <div class="product-card">
+                    <small style="color:var(--p2-accent); font-weight:800;">PREMIUM</small>
+                    <h3>Golden UI Kit</h3>
+                    <p>Toprak tonlarıyla harmanlanmış tasarım seti.</p>
+                    <div class="product-visual"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="news-section">
+            <div class="container">
+                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 40px; text-align: center;">Güncel Haberler</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-date">12 ŞUBAT 2026</span>
+                        <h3>Yeni Ofisimiz Açıldı</h3>
+                        <p>Teknoloji ve konforun buluştuğu yeni merkezimizde hizmetinizdeyiz.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-date">10 ŞUBAT 2026</span>
+                        <h3>AI Entegrasyonları</h3>
+                        <p>Tüm ürünlerimize yapay zeka destekli analiz araçları eklendi.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-date">05 ŞUBAT 2026</span>
+                        <h3>Sürdürülebilir Tasarım</h3>
+                        <p>Dijital dünyada çevre dostu kodlama yaklaşımlarını benimsiyoruz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">ULTRA<span>PRO</span></a>
+                    <p style="margin-top:15px; opacity:0.7;">Premium digital solutions.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Hızlı Menü</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Anasayfa</a></li>
+                        <li><a href="#">Haberler</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p style="text-align:center; margin-top:40px; font-size:0.8rem; opacity:0.5;">&copy; 2026 UltraPro. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('overlay');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

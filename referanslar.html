@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referanslarımız | UltraPro</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .page-header { padding: 160px 0 80px; background: var(--bg-sub); text-align: center; }
+        
+        /* Referans Grid Yapısı */
+        .refs-page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 80px 0;
+        }
+
+        .ref-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ref-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(1); /* Başlangıçta gri */
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .ref-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-light);
+            background: #fff;
+        }
+
+        .ref-card:hover img {
+            filter: grayscale(0); /* Üzerine gelince renkli */
+            opacity: 1;
+        }
+
+        .ref-name {
+            position: absolute;
+            bottom: 15px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .ref-card:hover .ref-name {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">ULTRA<span>PRO</span></a></div>
+                <div class="nav-links">
+                    <a href="index.html">Ana Sayfa</a>
+                    <a href="hizmetler.html">Hizmetler</a>
+                    <a href="ekibimiz.html">Ekibimiz</a>
+                    <a href="makaleler.html">Makaleler</a>
+                    <a href="haberler.html">Haberler</a>
+                    <a href="galeri.html">Galeri</a>
+                    <a href="referanslar.html">Referanslar</a>
+                </div>
+                <div class="hamburger"><span></span><span></span><span></span></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 style="font-size: 3rem; font-weight: 800; letter-spacing: -2px;">Güçlü İş Ortaklıkları</h1>
+                <p style="color: var(--text-muted); margin-top: 15px;">Başarı yolculuğumuzda bize güvenen global ve yerel markalar.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="refs-page-grid">
+                
+                <a href="https://www.apple.com" target="_blank" class="ref-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+                    <span class="ref-name">Apple Inc.</span>
+                </a>
+
+                <a href="https://www.coca-cola.com" target="_blank" class="ref-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg" alt="Coca Cola">
+                    <span class="ref-name">Coca Cola</span>
+                </a>
+
+                <a href="https://www.google.com" target="_blank" class="ref-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+                    <span class="ref-name">Google</span>
+                </a>
+
+                <a href="https://www.amazon.com" target="_blank" class="ref-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon">
+                    <span class="ref-name">Amazon</span>
+                </a>
+
+                <a href="https://www.tesla.com" target="_blank" class="ref-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" alt="Tesla">
+                    <span class="ref-name">Tesla</span>
+                </a>
+
+                <a href="https://www.samsung.com" target="_blank" class="ref-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" alt="Samsung">
+                    <span class="ref-name">Samsung</span>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="color:#fff">ULTRA<span>PRO</span></div>
+                    <p style="margin-top:20px; color:#94a3b8">15 yıllık tecrübeyle markanızı dijital dünyada geleceğe taşıyoruz.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Kurumsal</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="ekibimiz.html">Ekibimiz</a></li>
+                        <li><a href="referanslar.html">Referanslar</a></li>
+                        <li><a href="haberler.html">Haberler</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hizmetler</h4>
+                    <ul class="footer-links">
+                        <li><a href="hizmetler.html">Web Tasarım</a></li>
+                        <li><a href="hizmetler.html">Yazılım Geliştirme</a></li>
+                        <li><a href="hizmetler.html">Dijital Pazarlama</a></li>
+                        <li><a href="hizmetler.html">SEO</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Bize Ulaşın</h4>
+                    <ul class="footer-contact-info" style="list-style:none;">
+                        <li style="color:#94a3b8; margin-bottom:10px;">📍 Maslak Plaza, İstanbul</li>
+                        <li style="color:#94a3b8; margin-bottom:10px;">📞 +90 (212) 555 00 00</li>
+                        <li style="color:#94a3b8;">✉️ info@ultrapro.com.tr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 UltraPro Dijital. Tüm Hakları Saklıdır.</p>
+                <div style="display:flex; gap:20px;">
+                    <a href="#" style="color:inherit; text-decoration:none;">KVKK</a>
+                    <a href="#" style="color:inherit; text-decoration:none;">Gizlilik</a>
+                    <a href="#" style="color:inherit; text-decoration:none;">Çerezler</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/engine.js"></script>
+</body>
+</html>
